@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>メンバー一覧</title>
+</head>
+
+<body>
+	<h1>メンバー一覧</h1>
+	<a href="add">新規追加</a>
+	<form action="">
+		<p>名前検索
+			<input type="text" name="keyword">
+			<input type="submit">
+		</p>
+	</form>
+	<form action="">
+		<p>年齢で絞り込み:
+			<input type="number" name="from" value="0">才以上
+			<input type="number" name="to" value="100">才未満
+			<input type="submit">
+		</p>
+	</form>
+
+	<p th:each="member : ${members}">
+		<a th:href="@{/member(id=${member.id})}">
+			[[${member.id}]]
+			[[${member.name}]]
+		</a>
+	</p>
+</body>
+
+</html>

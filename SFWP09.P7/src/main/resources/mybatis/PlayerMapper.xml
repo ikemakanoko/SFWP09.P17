@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--関連付けするmapperをFQCNで指定※拡張子なし-->
+<mapper namespace="com.example.app.mapper.PlayerMapper">
+	<!--SQL文にセミコロンは付けない
+	長くなるなら改行(+はいらない)-->
+	<!--id属性にメソッド名を指定-->
+	<!--resultType属性に戻ってきたデータを格納するドメイン指定-->
+	<select id="selectAll" resultType="Player">
+		select *
+		from
+		players
+	</select>
+</mapper>

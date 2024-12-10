@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.app.mapper.MemberMapper">
+
+	<!-- resultMap 定義 -->
+	<resultMap id="memberMap" type="Member">
+		<!-- プライマリキーには id タグを使用 -->
+		<id property="id" column="id" />
+		<!-- その他のデータは result タグで指定 -->
+		<result property="name" column="name" />
+		<result property="age" column="age" />
+		<result property="address" column="address" />
+		<result property="typeId" column="typeId" />
+		<result property="created" column="created" />
+	</resultMap>
+
+	<!-- 全件取得用のSQL -->
+	<!-- <select id="selectAll" resultMap="memberMap"> select * from members 
+		</select> -->
+
+	<!-- 個別取得用のSQL -->
+	<select id="selectById" resultMap="memberMap">
+		select * from members
+		where id = #{id}
+	</select>
+	<!-- 年齢で絞り込み検索 -->
+	<select id="selectByAge">
+		select * from members
+		<![CDATA[
+		where age >= #{from} and age < #{to}
+		]]>
+	</select>
+	<select id="selectAll" resultMap="memberMap">
+		select * from members
+	</select>
+
+	<!--名前検索 -->
+	<select id="selectByName">
+		select * from members
+		<!--where name like '%山%' -->
+		where name like CONCAT('%', #{keyword}, '%')
+	</select>
+	
+<!--	新規追加-->
+	<insert id="add" parameterType="Member">
+		insert into members values
+		(null, #{name}, #{age}, #{address}, #{typeId}, now())
+	</insert>
+	
+	<delete id="delete">
+   		delete from members where id = #{id}
+	</delete>
+	
+	<!--更新-->
+	<update id="update" parameterType="Member">
+		update members
+		set
+		name = #{name},
+		age = #{age},
+		address = #{address},
+		type_id = #{typeId},
+		where id = #{id}
+	</update>
+</mapper>
